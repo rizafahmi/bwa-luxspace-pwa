@@ -78,6 +78,24 @@ registerRoute(
   })
 );
 
+registerRoute(
+  ({ url }) => url.origin.includes("qorebase.io"),
+  new NetworkFirst()
+);
+
+registerRoute(
+  // Add in any other file extensions or routing criteria as needed.
+  ({ url }) => /\.(jpe?g|png|gif|bmp|svg|ico)$/i.test(url.pathname), // Customize this strategy as needed, e.g., by changing to CacheFirst.
+  new StaleWhileRevalidate({
+    cacheName: "images",
+    plugins: [
+      // Ensure that once this runtime cache reaches a maximum size the
+      // least-recently used images are removed.
+      new ExpirationPlugin({ maxEntries: 50 }),
+    ],
+  })
+);
+
 self.addEventListener("install", function (event) {
   console.log("SW Install");
 
