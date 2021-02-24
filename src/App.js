@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Header from "./components/Header.js";
 import Hero from "./components/Hero.js";
@@ -8,6 +9,7 @@ import Clients from "./components/Clients.js";
 import Modal from "./components/Modal.js";
 import Footer from "./components/Footer.js";
 import Offline from "./components/Offline.js";
+import Profile from "./pages/Profile.js";
 
 function App() {
   const [showModal, setShowModal] = React.useState(false);
@@ -63,4 +65,13 @@ function App() {
   );
 }
 
-export default App;
+export default function () {
+  return (
+    <Router>
+      <>
+        <Route path="/" exact component={App} />
+        <Route path="/profile" exact component={Profile} />
+      </>
+    </Router>
+  );
+}

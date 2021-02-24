@@ -1,4 +1,5 @@
 import logo from "../images/content/logo.png";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -6,10 +7,12 @@ function Header() {
       <div className="container mx-auto py-5">
         <div className="flex flex-stretch items-center">
           <div className="w-56 items-center flex">
-            <img
-              src={logo}
-              alt="Luxspace | Fulfill your house with beautiful furniture"
-            />
+            <Link to="/">
+              <img
+                src={logo}
+                alt="Luxspace | Fulfill your house with beautiful furniture"
+              />
+            </Link>
           </div>
           <div className="w-full"></div>
           <div className="w-auto">
@@ -42,12 +45,12 @@ function Header() {
                 </a>
               </li>
               <li className="mx-3 py-6 md:py-0">
-                <a
-                  href="#"
+                <Link
+                  to="/profile"
                   className="text-black md:text-white hover:underline"
                 >
-                  Rewards
-                </a>
+                  Profile
+                </Link>
               </li>
             </ul>
           </div>
