@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 function numberFormat(price) {
   const currency = Intl.NumberFormat("id-ID", {
     style: "currency",
@@ -6,6 +8,15 @@ function numberFormat(price) {
   return currency.format(price);
 }
 function Arrived({ items }) {
+  useEffect(function () {
+    const script = document.createElement("script");
+    script.src = "/carousel.js";
+    script.async = false;
+    document.body.appendChild(script);
+    return function () {
+      document.body.removeChild(script);
+    };
+  }, []);
   return (
     <section className="flex flex-col py-16">
       <div className="container mx-auto mb-4">
