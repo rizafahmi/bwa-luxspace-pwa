@@ -1,15 +1,14 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import Header from "./components/Header.js";
-import Hero from "./components/Hero.js";
-import Browse from "./components/Browse.js";
-import Arrived from "./components/Arrived.js";
-import Clients from "./components/Clients.js";
-import Modal from "./components/Modal.js";
-import Footer from "./components/Footer.js";
-import Offline from "./components/Offline.js";
 import Profile from "./pages/Profile.js";
+import Splash from "./pages/Splash.js";
+import Details from "./pages/Details.js";
+const Main = React.lazy(() => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(import("./pages/Main.js")), 1500);
+  });
+});
 
 function App() {
   const [showModal, setShowModal] = React.useState(false);
@@ -38,6 +37,10 @@ function App() {
         );
         const { nodes } = await response.json();
         setItems(nodes);
+        const script = document.createElement("script");
+        script.src = "/carousel.js";
+        script.async = false;
+        document.body.appendChild(script);
       })();
 
       handleOfflineStatus();
@@ -52,16 +55,14 @@ function App() {
     [offlineStatus]
   );
   return (
-    <>
-      {offlineStatus && <Offline />}
-      <Header />
-      <Hero handleShowModal={handleShowModal} />
-      <Browse />
-      <Arrived items={items} />
-      <Clients />
-      <Footer />
-      {showModal && <Modal handleShowModal={handleShowModal} />}
-    </>
+    <React.Suspense fallback={<Splash />}>
+      <Main
+        offlineStatus={offlineStatus}
+        handleShowModal={handleShowModal}
+        showModal={showModal}
+        items={items}
+      />
+    </React.Suspense>
   );
 }
 
@@ -71,6 +72,7 @@ export default function () {
       <>
         <Route path="/" exact component={App} />
         <Route path="/profile" exact component={Profile} />
+        <Route path="/details/:id" exact component={Details} />
       </>
     </Router>
   );

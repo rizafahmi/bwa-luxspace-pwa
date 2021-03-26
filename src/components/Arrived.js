@@ -1,22 +1,9 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { numberFormat } from "../utils.js";
 
-function numberFormat(price) {
-  const currency = Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-  });
-  return currency.format(price);
-}
 function Arrived({ items }) {
-  useEffect(function () {
-    const script = document.createElement("script");
-    script.src = "/carousel.js";
-    script.async = false;
-    document.body.appendChild(script);
-    return function () {
-      document.body.removeChild(script);
-    };
-  }, []);
+  useEffect(function () {}, []);
   return (
     <section className="flex flex-col py-16">
       <div className="container mx-auto mb-4">
@@ -61,7 +48,13 @@ function Arrived({ items }) {
                   </div>
                   <h5 className="text-lg font-semibold mt-4">{item.name}</h5>
                   <span className="">{numberFormat(item.price)}</span>
-                  <a href="details.html" className="stretched-link"></a>
+                  <Link
+                    to={{
+                      pathname: `details/${item.id}`,
+                      state: item,
+                    }}
+                    className="stretched-link"
+                  ></Link>
                 </div>
               );
             })}
