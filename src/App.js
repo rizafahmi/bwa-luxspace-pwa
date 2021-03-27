@@ -10,13 +10,12 @@ const Main = React.lazy(() => {
   });
 });
 
-function App() {
+function App({ cart }) {
   const [showModal, setShowModal] = React.useState(false);
   const [items, setItems] = React.useState([]);
   const [offlineStatus, setOfflineStatus] = React.useState(!navigator.onLine);
 
   function handleOfflineStatus() {
-    console.log(!navigator.onLine);
     setOfflineStatus(!navigator.onLine);
   }
   function handleShowModal(event) {
@@ -61,19 +60,27 @@ function App() {
         handleShowModal={handleShowModal}
         showModal={showModal}
         items={items}
+        cart={cart}
       />
     </React.Suspense>
   );
 }
 
 export default function () {
+  const [cart, setCart] = React.useState([]);
+  function handleAddToCart(item) {
+    const newCart = [{ item, qty: 1 }];
+    setCart(newCart);
+  }
   return (
     <Router>
-      <>
-        <Route path="/" exact component={App} />
-        <Route path="/profile" exact component={Profile} />
-        <Route path="/details/:id" exact component={Details} />
-      </>
+      <Route path="/" exact>
+        <App cart={cart} />
+      </Route>
+      <Route path="/profile" exact component={Profile} />
+      <Route path="/details/:id" exact>
+        <Details handleAddToCart={handleAddToCart} cart={cart} />
+      </Route>
     </Router>
   );
 }

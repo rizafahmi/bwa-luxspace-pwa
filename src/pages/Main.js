@@ -7,11 +7,11 @@ import Modal from "../components/Modal.js";
 import Footer from "../components/Footer.js";
 import Offline from "../components/Offline.js";
 
-function Main({ offlineStatus, handleShowModal, items, showModal }) {
+function Main({ offlineStatus, handleShowModal, items, showModal, cart }) {
   return (
     <>
       {offlineStatus && <Offline />}
-      <Header />
+      <Header cart={cart} />
       <Hero handleShowModal={handleShowModal} />
       <Browse />
       <Arrived items={items} />

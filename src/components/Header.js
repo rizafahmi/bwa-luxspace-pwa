@@ -2,7 +2,7 @@ import logo from "../images/content/logo.png";
 import Menu from "./Menu.js";
 import { Link } from "react-router-dom";
 
-function Header({ currentPage }) {
+function Header({ cart, currentPage }) {
   return (
     <header
       className={`${currentPage !== "details" && "absolute"} w-full z-50 px-4`}
@@ -18,7 +18,7 @@ function Header({ currentPage }) {
             </Link>
           </div>
           <div className="w-full"></div>
-          <Menu currentPage={currentPage} />
+          <Menu currentPage={currentPage} cart={cart} />
         </div>
       </div>
     </header>
