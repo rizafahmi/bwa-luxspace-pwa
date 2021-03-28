@@ -1,5 +1,5 @@
-import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useLocation, useHistory } from "react-router-dom";
+import { useState, useLayoutEffect } from "react";
 import Header from "../components/Header.js";
 import Footer from "../components/Footer.js";
 import Breadcrumb from "../components/Breadcrumb.js";
@@ -20,6 +20,18 @@ function Details({ cart, handleAddToCart }) {
   } = location.state;
 
   const [currentImage, setCurrentImage] = useState(image1);
+  const history = useHistory();
+
+  useLayoutEffect(
+    function () {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    },
+    [history.length]
+  );
   return (
     <>
       <Header currentPage="details" cart={cart} />

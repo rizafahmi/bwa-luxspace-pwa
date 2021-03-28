@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 function Menu({ cart, currentPage }) {
   let textColor = "md:text-white";
   if (currentPage === "details") textColor = "md:text-black";
-  console.log(cart);
   return (
     <>
       <div className="w-auto">
@@ -66,10 +65,10 @@ function Menu({ cart, currentPage }) {
             </button>
           </li>
           <li className="ml-6">
-            <a
+            <Link
               id="header-cart"
               className={`flex items-center justify-center w-8 h-8 text-black ${textColor}`}
-              href="cart.html"
+              to="/cart"
             >
               <svg
                 className="fill-current"
@@ -93,7 +92,7 @@ function Menu({ cart, currentPage }) {
                   </g>
                 )}
               </svg>
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
